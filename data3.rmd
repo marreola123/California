@@ -1,0 +1,69 @@
+---
+title: "data3"
+author: "Mario"
+date: "May 18, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries, include=FALSE}
+library(plotly)
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(shiny)
+```
+
+Creating a map of Los Angeles in r is simple. There are many packages with map capabilities of making a map of Los Angeles. Example of map makingpakcages in r are leaftlet and ggmap. 
+
+The data can be set to a geo location and thus give a better view of what the data is representing. For example, California can bebrokendown into counties and the data aquire from the census can be shown to represent the corresponding county. 
+
+The same can be said LA county would be split in to its inner cities, and would give out cencus data, and other economic information. 
+
+This would also show patterns inside LA county. For example, traffic movements, transportation access,crime comited. 
+
+This program is also going to have interative tables.
+
+Tasks:
+
+* Get list of where to get data:
+  + US Census
+    + Get correct librarries.  get focus data on los angeles.
+* get LA county map in leaflet.
+* Get a list of interactive tables you may use. 
+* Hook up the live data from i.e. census to interactive table. 
+* Hook up the interactive map with the data. 
+
+Useful Websites [Shows how to use tidycensus](https://www.surveillancerepository.org/analyze-us-census-data-r-tidycensus)
+
+
+
+```{r ToGetCensesInformation, include=FALSE}
+### Not running.
+##
+library(tidycensus) # Might need API Key.
+library(censusapi) # Ke for census API: "dc0d6cdb4939712b447d2a061dee96a84316802e"
+Sys.setenv(CENSUS_KEY="dc0d6cdb4939712b447d2a061dee96a84316802e") # Need to run after restarting the program.
+# Sys.getenv("CENSUS_API_KEY") # Shows key saved.
+```
+
+
+```{r getsData, include=FALSE}
+
+mob <- get_acs(geography = "county", state = "CA", 
+              variables = "B08105B_001", geometry = TRUE) # 
+
+```
+
+
+This map was created using ggplot and tidycensus. The map is maping  B08105B_001 = Means of Transportation to Work (Black or African American Alone).
+
+
+```{r echo=FALSE}
+ggplot(mob, aes(fill = estimate)) + geom_sf() #This will map varibles.
+```
+#########################################################################################################################
+
